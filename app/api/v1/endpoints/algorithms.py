@@ -39,8 +39,6 @@ async def modify_algorithm_data(
     try:
         return modify_algorithm_data_service(session, id, request)
     except Exception as e:
-        tb_str = ''.join(traceback.format_exception(type(e), e, e.__traceback__))
-        print(f"[ERROR] Exception occurred:\n{tb_str}", file=sys.stderr)  # 打印带文件名/行号的堆栈
         raise HTTPException(status_code=500, detail=f"服务器内部错误: {str(e)}")
 
 @router.get("", response_model=OperatingResponse)
@@ -64,8 +62,6 @@ async def get_algorithms_info(
             algorithm_name
         )
     except Exception as e:
-        tb_str = ''.join(traceback.format_exception(type(e), e, e.__traceback__))
-        print(f"[ERROR] Exception occurred:\n{tb_str}", file=sys.stderr)  # 打印带文件名/行号的堆栈
         raise HTTPException(status_code=500, detail=f"服务器内部错误: {str(e)}")
 
 @router.delete("/{id}", response_model=OperatingResponse)

@@ -27,6 +27,7 @@ class AlgorithmUpdateRequest(AlgorithmBase):
 
 class AlgorithmBaseInfoResponse(AlgorithmBase):
     id: int = Field(..., description="算法名称")
+    algorithm_status: int = Field(..., description="算法运行状态")
     create_time: datetime = Field(..., description="数据创建时间")
 
     class Config:
