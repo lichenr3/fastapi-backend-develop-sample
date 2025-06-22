@@ -3,7 +3,7 @@ from sqlalchemy import select, desc
 from datetime import datetime
 from sqlalchemy.orm import Session
 from sqlalchemy import delete, desc, insert, select, update
-from app.models.db_models import AlgorithmBaseInfo
+from app.models.db_models import AlgorithmBaseInfos
 from app.schemas.algorithms import *
 from app.utils.constants import *
 
@@ -13,7 +13,7 @@ def insert_algorithm_by_data(
 ) -> bool:
     insert_data = request.model_dump()
     insert_data["algorithm_status"] = 0
-    stmt = insert(AlgorithmBaseInfo).values(**insert_data)
+    stmt = insert(AlgorithmBaseInfos).values(**insert_data)
     result = session.execute(stmt)
     return result.rowcount > 0
 
@@ -25,8 +25,8 @@ def update_algorithm_by_data(
     update_data = request.model_dump(exclude_unset=True)
 
     stmt = (
-        update(AlgorithmBaseInfo)
-        .where(AlgorithmBaseInfo.id == id)
+        update(AlgorithmBaseInfos)
+        .where(AlgorithmBaseInfos.id == id)
         .values(**update_data)
     )
     result = session.execute(stmt)
@@ -39,13 +39,13 @@ def query_algorithm_by_name(
         algorithm_name: str
 ) -> list:
     stmt = (
-        select(AlgorithmBaseInfo)
+        select(AlgorithmBaseInfos)
     )
 
     if algorithm_name:
-        stmt = stmt.where(AlgorithmBaseInfo.algorithm_name.like(f"%{algorithm_name}%"))
+        stmt = stmt.where(AlgorithmBaseInfos.algorithm_name.like(f"%{algorithm_name}%"))
 
-    stmt = stmt.order_by(desc(AlgorithmBaseInfo.create_time))
+    stmt = stmt.order_by(desc(AlgorithmBaseInfos.create_time))
     stmt = stmt.offset((page - 1) * page_size).limit(page_size)
     result = session.execute(stmt).scalars().all()
 
@@ -55,8 +55,8 @@ def delete_algorithm_by_id(
         session: Session,
         id: int
 ) -> bool:
-    stmt = delete(AlgorithmBaseInfo).where(
-        AlgorithmBaseInfo.id == id
+    stmt = delete(AlgorithmBaseInfos).where(
+        AlgorithmBaseInfos.id == id
     )
     result = session.execute(stmt)
     return result.rowcount > 0
@@ -66,9 +66,9 @@ def modify_algorithm_by_status(
         id: int,
         status: int
 ) -> bool:
-    stmt = update(AlgorithmBaseInfo).values(
+    stmt = update(AlgorithmBaseInfos).values(
         algorithm_status=status).where(
-        AlgorithmBaseInfo.id == id
+        AlgorithmBaseInfos.id == id
     )
     result = session.execute(stmt)
     return result.rowcount > 0

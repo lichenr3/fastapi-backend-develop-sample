@@ -4,6 +4,7 @@ from sqlalchemy import (
     Integer,
     String,
     Float,
+    Text,
     DateTime,
     ForeignKey,
     func
@@ -51,7 +52,7 @@ class CameraBaseInfo(Base):
     def __repr__(self):
         return f"<CameraBaseInfo(id={self.id}, camera_ip='{self.camera_ip}', status={self.status})>"
 
-class AlgorithmBaseInfo(Base):
+class AlgorithmBaseInfos(Base):
     """
     算法基础信息表
     """
@@ -110,7 +111,7 @@ class TaskBaseInfo(Base):
     )
 
     # === 关系定义 ===
-    algorithm = relationship("AlgorithmBaseInfo", back_populates="tasks")
+    algorithm = relationship("AlgorithmBaseInfos", back_populates="tasks")
     camera = relationship("CameraBaseInfo", back_populates="tasks")
 
     __table_args__ = {
@@ -119,3 +120,58 @@ class TaskBaseInfo(Base):
 
     def __repr__(self):
         return f"<TaskBaseInfo(id={self.id}, task_name='{self.task_name}', status={self.status})>"
+
+class DeviceBaseInfos(Base):
+    """
+    边缘设备基础信息表
+    """
+    __tablename__ = 'device_base_infos'
+
+    # === 列定义 ===
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    device_name = Column(String(50), nullable=True, comment='边缘设备名称')
+    device_address = Column(String(50), nullable=True, comment='部署地址')
+    community = Column(String(50), nullable=True, comment='部署小区')
+    project_name = Column(String(50), nullable=True, comment='项目名称')
+
+    create_time = Column(
+        DateTime,
+        nullable=False,
+        server_default=func.now(),
+        onupdate=func.now(),
+        comment='数据创建时间'
+    )
+
+    __table_args__ = {
+        'comment': '边缘设备基础信息表'
+    }
+
+    def __repr__(self):
+        return f"<DeviceBaseInfos(id={self.id}, device_name='{self.device_name}', project_name='{self.project_name}')>"
+
+class FaceBaseInfos(Base):
+    """
+    人脸数据基础信息表
+    """
+    __tablename__ = 'face_base_infos'
+
+    # === 列定义 ===
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    face_name = Column(String(50), nullable=True, comment='人脸名称')
+    face_img_url = Column(String(100), nullable=True, comment='人脸图像URL')
+    face_feature = Column(Text, nullable=True, comment='人脸特征向量')
+
+    create_time = Column(
+        DateTime,
+        nullable=False,
+        server_default=func.now(),
+        onupdate=func.now(),
+        comment='数据创建时间'
+    )
+
+    __table_args__ = {
+        'comment': '人脸数据基础信息表'
+    }
+
+    def __repr__(self):
+        return f"<FaceBaseInfos(id={self.id}, face_name='{self.face_name}')>"

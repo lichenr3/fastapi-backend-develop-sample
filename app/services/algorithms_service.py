@@ -55,7 +55,7 @@ def get_algorithms_info_service(
 ) -> OperatingResponse:
     try:
         results = query_algorithm_by_name(session, page, page_size, algorithm_name)
-        data = [AlgorithmBaseInfoResponse.model_validate(row) for row in results]
+        data = [AlgorithmBaseInfo.model_validate(row) for row in results]
 
     except Exception as e:
         raise e

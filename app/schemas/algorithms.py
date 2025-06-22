@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import List, Optional
+from typing import Optional
 from datetime import datetime
 
 class AlgorithmBase(BaseModel):
@@ -25,7 +25,7 @@ class AlgorithmUpdateRequest(AlgorithmBase):
     """
     pass
 
-class AlgorithmBaseInfoResponse(AlgorithmBase):
+class AlgorithmBaseInfo(AlgorithmBase):
     id: int = Field(..., description="算法名称")
     algorithm_status: int = Field(..., description="算法运行状态")
     create_time: datetime = Field(..., description="数据创建时间")

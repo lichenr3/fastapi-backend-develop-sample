@@ -5,7 +5,6 @@ from deepface import DeepFace
 from urllib.parse import urlparse
 from app.utils.exception_handler import *
 import cv2
-import numpy as np
 from fastapi import APIRouter, HTTPException, Depends, FastAPI, Form, File, UploadFile
 
 def extract_face_features(image_url: str) -> list:
