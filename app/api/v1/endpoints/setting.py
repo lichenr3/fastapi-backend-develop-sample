@@ -1,6 +1,4 @@
 
-import traceback
-import sys
 from fastapi import APIRouter, HTTPException, UploadFile, Depends, Form, File, Body
 from sqlalchemy.orm import Session
 from app.api.deps import get_db
@@ -86,8 +84,6 @@ async def modify_face_data(
         }
         return modify_face_data_service(session, id, request)
     except Exception as e:
-        tb_str = ''.join(traceback.format_exception(type(e), e, e.__traceback__))
-        print(f"[ERROR] Exception occurred:\n{tb_str}", file=sys.stderr)  # 打印带文件名/行号的堆栈
         raise HTTPException(status_code=500, detail=f"{str(e)}")
 
 @router.delete("/face/{id}", response_model=OperatingResponse)
@@ -98,8 +94,7 @@ async def delete_face_data(
     try:
         return delete_face_data_service(session, id)
     except Exception as e:
-        tb_str = ''.join(traceback.format_exception(type(e), e, e.__traceback__))
-        print(f"[ERROR] Exception occurred:\n{tb_str}", file=sys.stderr)  # 打印带文件名/行号的堆栈
+
         raise HTTPException(status_code=500, detail=f"{str(e)}")
 
 @router.get("/face", response_model=OperatingResponse)
