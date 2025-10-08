@@ -17,7 +17,6 @@ This repository serves as a production-ready boilerplate for building robust and
 │   │       ├── api_router.py      # Main router, aggregates all API endpoints
 │   │       └── endpoints          # Specific router implementations
 │   │           ├── __init__.py
-│   │           ├── analysis.py
 │   │           ├── algorithm.py
 │   │           └── ...
 │   ├── core                   # [Core business logic modules]
