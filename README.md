@@ -4,44 +4,32 @@ This repository serves as a production-ready boilerplate for building robust and
 
 ### Project Structure
 
+```text
 ├── app
 │   ├── .env                   # Environment variables
-│   ├── init.py
+│   ├── __init__.py
 │   ├── main.py                # Main application entrypoint
 │   ├── api                    # [Module for API routers and interfaces]
-│   │   ├── init.py
+│   │   ├── __init__.py
 │   │   ├── deps.py              # Dependency injection for database sessions
 │   │   └── v1                   # API versioning
-│   │       ├── init.py
+│   │       ├── __init__.py
 │   │       ├── api_router.py      # Main router, aggregates all API endpoints
 │   │       └── endpoints          # Specific router implementations
-│   │           ├── init.py
+│   │           ├── __init__.py
+│   │           ├── analysis.py
 │   │           ├── algorithm.py
 │   │           └── ...
 │   ├── core                   # [Core business logic modules]
-│   │   ├── init.py
+│   │   ├── __init__.py
 │   │   ├── config.py            # Configuration loader
 │   │   └── db_session.py        # Database session management utility
 │   ├── crud                   # [Module for database CRUD operations]
-│   │   ├── init.py
+│   │   ├── __init__.py
+│   │   ├── crud_analysis.py
 │   │   ├── crud_algorithm.py
 │   │   └── ...
 │   ├── models                 # [ORM models]
-│   │   ├── db_models.py
-│   ├── schemas                # [Request and response Pydantic models]
-│   │   ├── init.py
-│   │   ├── algorithm.py
-│   │   ├── ...
-│   │   └── base                 # Common/shared schemas
-│   │       ├── common.py          # Base models
-│   │       └── header.py          # Definition for response headers
-│   ├── services               # [Service layer implementations]
-│   │   ├── init.py
-│   │   ├── algorithm_service.py
-│   │   └── ...
-│   └── utils                  # [General utility modules]
-│       ├── init.py
-│       ├── exception_handler.py # Custom exception handlers
-│       ├── logger.py            # Application logger setup
-│       ├── orchestrator.py      # Request orchestrator
-│       ├── ...
+│   │   ├── table.py
+│   │   └── data.py
+│   ├── schemas
